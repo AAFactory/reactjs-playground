@@ -25,6 +25,7 @@ function Counter2() {
 
   return (
     <div>
+      { console.log('re-rendering') }
       {/* { console.log(`checkNum: ${++checkNum}`) } */}
       {/* { console.log(`checkNumRef: ${++checkNumRef.current}`) } */}
       <h1>Counter2.js</h1>
