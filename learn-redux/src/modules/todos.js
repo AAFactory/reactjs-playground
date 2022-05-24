@@ -30,6 +30,7 @@ const initialState = [
 ];
 
 export default function todos(state = initialState, action) {
+  console.log('reducer-todos')
   switch (action.type) {
     case ADD_TODO:
       return state.concat(action.todo);

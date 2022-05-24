@@ -7,7 +7,9 @@ export const increase = () => ({ type: INCREASE });
 export const decrease = () => ({ type: DECREASE });
 
 // getState를 쓰지 않는다면 굳이 파라미터로 받아올 필요 없습니다.
-export const increaseAsync = () => dispatch => {
+// ReduxThunk (import ReduxThunk from 'redux-thunk';) 미들웨어를 적용하여 dispatch단계에서 복합적인 작업을 할 수 있음
+export const increaseAsync = () => (dispatch, getState) => {
+  console.log(getState())
   setTimeout(() => dispatch(increase()), 1000);
 };
 export const decreaseAsync = () => dispatch => {
