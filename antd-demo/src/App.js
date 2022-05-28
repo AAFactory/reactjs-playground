@@ -6,16 +6,20 @@ import ModalPopup from './components/ModalPopup'
 
 function App() {
   console.log("Render-App")
-    const [visible, setVisible] = useState(true)
+    const [visible, setVisible] = useState(false)
     const [number, setNumber] = useState(0)
     const [form] = Form.useForm()
     const [formLayout, setFormLayout] = useState('horizontal')
     const myRef = useRef();
 
 
-    console.log(1)
+    const testFun = () => {
+      console.log('call testFun')
+      setNumber(number + 1)
+      setVisible(true)
+    }
+
     useEffect(() => {
-      console.log(2)
       // if (myRef && myRef.current) {
       //   const { input } = myRef.current
       //   input.focus()
@@ -28,7 +32,6 @@ function App() {
         document.querySelectorAll("[type=text]")[0].focus()
      })
     })   
-    console.log(3)
 
     const onFormLayoutChange = ({ layout }) => {
         setFormLayout(layout)
@@ -56,6 +59,7 @@ function App() {
             : null
     return (
         <div className="App">
+          {number}
             <Form
                 {...formItemLayout}
                 layout={formLayout}
@@ -82,7 +86,7 @@ function App() {
             <Button type="primary" onClick={() => setVisible(true)}>
                 Open Modal of 1000px width
             </Button>
-            <Button type="primary" onClick={() => setNumber(number + 1)}>
+            <Button type="primary" onClick={() => testFun()}>
                 변경
             </Button>
             <ModalPopup visible={visible} setVisible={setVisible}></ModalPopup>

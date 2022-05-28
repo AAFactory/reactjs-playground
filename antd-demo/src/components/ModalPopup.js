@@ -9,10 +9,11 @@ const ModalPopup = ({ visible, setVisible }) => {
     // myRef.current.input.focus()   
     
 
-    // useEffect(() => {
-    //   console.log(document.querySelectorAll("input[type=text]"))
-    //   document.querySelectorAll("[type=text]")[0].focus()
-    // })   
+    useEffect(() => {
+      console.log('한번만')
+      // console.log(document.querySelectorAll("input[type=text]"))
+      // document.querySelectorAll("[type=text]")[0].focus()
+    }, [])   
 
     const onFormLayoutChange = ({ layout }) => {
         setFormLayout(layout)
