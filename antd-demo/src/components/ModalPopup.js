@@ -1,19 +1,40 @@
 import { useRef, useState, useEffect } from 'react'
-import { Form, Input, Button, Radio, Modal } from 'antd'
+import { Form, Input, Button, Radio, Modal, Col } from 'antd'
 
-const ModalPopup = ({ visible, setVisible }) => {
-    console.log('Render-ModalPopup')
+const ModalPopup = ({ visible, setVisible, workMode, projectId, setWorkMode }) => {
+    
+    console.log('ModalPopup.js-start')
+    const [number, setNumber] = useState(0)
     const [form] = Form.useForm()
     const [formLayout, setFormLayout] = useState('horizontal')
-    const myRef = useRef()
+    
     // myRef.current.input.focus()   
     
 
-    useEffect(() => {
-      console.log('한번만')
+    const testFun = () => {
+      console.log('ModalPopup.js-testFun')
+      setNumber(number + 1)
+      // setVisible(true)
+    }
+
+    useEffect(() => {     
+      console.log('ModalPopup.js-useEffect')
+      if (workMode === "CREATE" && projectId) {
+        console.log("CREATE 모드에서 projectId값이 들어오면 VIEW모드로 변경하고 렌더링을 다시합니다.")
+        setWorkMode("VIEW")
+      } 
+
+      setTimeout(() => {
+        // if (myRef && myRef.current) {
+            // myRef.current.input.focus()            
+        // }
+        console.log(document.querySelectorAll("input[type=text]"))
+        document.querySelectorAll("[type=text]")[0].focus()
+        //setNumber(number + 1)
+     })
       // console.log(document.querySelectorAll("input[type=text]"))
       // document.querySelectorAll("[type=text]")[0].focus()
-    }, [])   
+    },)   
 
     const onFormLayoutChange = ({ layout }) => {
         setFormLayout(layout)
@@ -52,6 +73,7 @@ const ModalPopup = ({ visible, setVisible }) => {
                 <p>some contents...</p>
                 <p>some contents...</p>
                 <p>some contents...</p>
+                {workMode} {number}
                 <Form
                     {...formItemLayout}
                     layout={formLayout}
@@ -71,7 +93,7 @@ const ModalPopup = ({ visible, setVisible }) => {
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item label="Field A">
-                        <Input placeholder="input placeholder" ref={myRef} />
+                      {workMode === "VIEW" ? (<span>asdasd</span>) : (<Input placeholder="input placeholder" />)}                        
                     </Form.Item>
                     <Form.Item label="Field B">
                         <Input placeholder="input placeholder" />
@@ -79,6 +101,10 @@ const ModalPopup = ({ visible, setVisible }) => {
                     <Form.Item {...buttonItemLayout}>
                         <Button type="primary">Submit</Button>
                     </Form.Item>
+                    <Form.Item label="Field C">
+                      <Button type="primary" onClick={() => testFun()}>변경</Button>
+                    </Form.Item>
+                    
                 </Form>
             </Modal>
         </>

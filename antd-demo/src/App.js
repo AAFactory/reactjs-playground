@@ -5,32 +5,35 @@ import { Form, Input, Button, Radio, Modal } from 'antd'
 import ModalPopup from './components/ModalPopup'
 
 function App() {
-  console.log("Render-App")
+  console.log("App.js-start")
     const [visible, setVisible] = useState(false)
     const [number, setNumber] = useState(0)
+    const [workMode, setWorkMode] = useState("CREATE")
+    const [projectId, setProjectId] = useState()
     const [form] = Form.useForm()
     const [formLayout, setFormLayout] = useState('horizontal')
     const myRef = useRef();
 
-
     const testFun = () => {
       console.log('call testFun')
       setNumber(number + 1)
+      // setVisible(true)
+    }
+
+    const openPopup = (projectId) => {
+      console.log(projectId)
+      setProjectId(projectId)
       setVisible(true)
+      setWorkMode("CREATE")
     }
 
     useEffect(() => {
+      console.log('App.js-useEffect')
       // if (myRef && myRef.current) {
       //   const { input } = myRef.current
       //   input.focus()
       // }
-      setTimeout(() => {
-        // if (myRef && myRef.current) {
-            // myRef.current.input.focus()            
-        // }
-        console.log(document.querySelectorAll("input[type=text]"))
-        document.querySelectorAll("[type=text]")[0].focus()
-     })
+      
     })   
 
     const onFormLayoutChange = ({ layout }) => {
@@ -83,13 +86,16 @@ function App() {
                     {/* <Input placeholder="input placeholder" /> */}
                 </Form.Item>                
             </Form>
-            <Button type="primary" onClick={() => setVisible(true)}>
-                Open Modal of 1000px width
+            <Button type="primary" onClick={() => openPopup('12312323')}>
+                열람팝업
+            </Button>
+            <Button type="primary" onClick={() => openPopup()}>
+                수정팝업
             </Button>
             <Button type="primary" onClick={() => testFun()}>
                 변경
             </Button>
-            <ModalPopup visible={visible} setVisible={setVisible}></ModalPopup>
+            <ModalPopup visible={visible} setVisible={setVisible}  workMode={workMode} projectId={projectId} setWorkMode={setWorkMode}></ModalPopup>
             
         </div>
     )
