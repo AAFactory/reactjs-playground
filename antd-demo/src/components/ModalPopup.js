@@ -5,6 +5,7 @@ const ModalPopup = ({ visible, setVisible, workMode, projectId, setWorkMode }) =
     
     console.log('ModalPopup.js-start')
     const [number, setNumber] = useState(0)
+    const [projectInfo, setpPojectInfo] = useState()
     const [form] = Form.useForm()
     const [formLayout, setFormLayout] = useState('horizontal')
     
@@ -17,8 +18,19 @@ const ModalPopup = ({ visible, setVisible, workMode, projectId, setWorkMode }) =
       // setVisible(true)
     }
 
+
+    useEffect(() => {    
+        console.log(`projectInfo is ${projectInfo}`)
+        if (projectId) {
+            setpPojectInfo({})
+          }
+    }, [projectId])
+
     useEffect(() => {     
       console.log('ModalPopup.js-useEffect')
+        
+      
+
       if (workMode === "CREATE" && projectId) {
         console.log("CREATE 모드에서 projectId값이 들어오면 VIEW모드로 변경하고 렌더링을 다시합니다.")
         setWorkMode("VIEW")
