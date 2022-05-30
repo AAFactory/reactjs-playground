@@ -1,52 +1,49 @@
 import { useRef, useState, useEffect } from 'react'
 import { Form, Input, Button, Radio, Modal, Col } from 'antd'
+import { log } from '../modules/utils'
 
-const ModalPopup = ({ visible, setVisible, workMode, projectId, setWorkMode }) => {
-    
-    console.log('ModalPopup.js-start')
+const ModalPopup = ({
+    visible,
+    setVisible,
+    workMode,
+    projectId,
+    setWorkMode,
+}) => {
+    log('ModalPopup.js', "start", 0)
     const [number, setNumber] = useState(0)
-    const [projectInfo, setpPojectInfo] = useState()
+    const [projectInfo, setpPojectInfo] = useState({})
     const [form] = Form.useForm()
     const [formLayout, setFormLayout] = useState('horizontal')
-    
-    // myRef.current.input.focus()   
-    
 
-    const testFun = () => {
-      console.log('ModalPopup.js-testFun')
-      setNumber(number + 1)
-      // setVisible(true)
-    }
-
-
-    useEffect(() => {    
-        console.log(`projectInfo is ${projectInfo}`)
+    useEffect(() => {
+        log('ModalPopup.js', `projectInfo is ${JSON.stringify(projectInfo)}`, 1)
         if (projectId) {
-            setpPojectInfo({})
-          }
+            setpPojectInfo({name: 'aaf-project'})
+        }
     }, [projectId])
 
-    useEffect(() => {     
-      console.log('ModalPopup.js-useEffect')
-        
-      
+    useEffect(() => {
+        console.log('ModalPopup.js-useEffect')
 
-      if (workMode === "CREATE" && projectId) {
-        console.log("CREATE 모드에서 projectId값이 들어오면 VIEW모드로 변경하고 렌더링을 다시합니다.")
-        setWorkMode("VIEW")
-      } 
+        if (workMode === 'CREATE' && projectId) {
+            console.log(
+                'CREATE 모드에서 projectId값이 들어오면 VIEW모드로 변경하고 렌더링을 다시합니다.'
+            )
+            setWorkMode('VIEW')
+        }
 
-      setTimeout(() => {
-        // if (myRef && myRef.current) {
-            // myRef.current.input.focus()            
-        // }
-        console.log(document.querySelectorAll("input[type=text]"))
-        document.querySelectorAll("[type=text]")[0].focus()
-        //setNumber(number + 1)
-     })
-      // console.log(document.querySelectorAll("input[type=text]"))
-      // document.querySelectorAll("[type=text]")[0].focus()
-    },)   
+        setTimeout(() => {
+            // if (myRef && myRef.current) {
+            // myRef.current.input.focus()
+            // }
+            const nodes = document.querySelectorAll('input[type=text]')
+            console.log(nodes)
+            if (nodes.length > 0)
+                document.querySelectorAll('[type=text]')[0].focus()
+        })
+        // console.log(document.querySelectorAll("input[type=text]"))
+        // document.querySelectorAll("[type=text]")[0].focus()
+    })
 
     const onFormLayoutChange = ({ layout }) => {
         setFormLayout(layout)
@@ -105,18 +102,18 @@ const ModalPopup = ({ visible, setVisible, workMode, projectId, setWorkMode }) =
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item label="Field A">
-                      {workMode === "VIEW" ? (<span>asdasd</span>) : (<Input placeholder="input placeholder" />)}                        
+                        {workMode === 'VIEW' ? (
+                            <span>asdasd</span>
+                        ) : (
+                            <Input placeholder="input placeholder" />
+                        )}
                     </Form.Item>
                     <Form.Item label="Field B">
                         <Input placeholder="input placeholder" />
                     </Form.Item>
                     <Form.Item {...buttonItemLayout}>
                         <Button type="primary">Submit</Button>
-                    </Form.Item>
-                    <Form.Item label="Field C">
-                      <Button type="primary" onClick={() => testFun()}>변경</Button>
-                    </Form.Item>
-                    
+                    </Form.Item>                    
                 </Form>
             </Modal>
         </>
