@@ -9,66 +9,54 @@ const ModalPopup = ({
     projectId,
     setWorkMode,
 }) => {
-    log('ModalPopup.js', "start", 0)
     const [number, setNumber] = useState(0)
     const [projectInfo, setpPojectInfo] = useState({})
     const [form] = Form.useForm()
     const [formLayout, setFormLayout] = useState('horizontal')
+    log('ModalPopup.js', 'start', 0)
+    log('ModalPopup.js', `projectInfo is ${JSON.stringify(projectInfo)}`, 1)
+    log('ModalPopup.js', `workMode is ${workMode}`, 1)
 
     useEffect(() => {
-        log('ModalPopup.js', `projectInfo is ${JSON.stringify(projectInfo)}`, 1)
         if (projectId) {
-            setpPojectInfo({name: 'aaf-project'})
+            setpPojectInfo({ name: 'aaf-project', fruits: 'Pineappple' })
+        } else {
+            setpPojectInfo({})
         }
     }, [projectId])
 
     useEffect(() => {
-        console.log('ModalPopup.js-useEffect')
-
-        if (workMode === 'CREATE' && projectId) {
-            console.log(
-                'CREATE 모드에서 projectId값이 들어오면 VIEW모드로 변경하고 렌더링을 다시합니다.'
-            )
-            setWorkMode('VIEW')
+        const nodes = document.querySelectorAll('input[type=text]')
+        if (nodes.length > 0) {
+            document.querySelectorAll('[type=text]')[0].focus()
         }
-
-        setTimeout(() => {
-            // if (myRef && myRef.current) {
-            // myRef.current.input.focus()
-            // }
-            const nodes = document.querySelectorAll('input[type=text]')
-            console.log(nodes)
-            if (nodes.length > 0)
-                document.querySelectorAll('[type=text]')[0].focus()
-        })
-        // console.log(document.querySelectorAll("input[type=text]"))
-        // document.querySelectorAll("[type=text]")[0].focus()
-    })
+        log('ModalPopup.js', `form is ${form}`, 1)
+        // form.setFieldsValue(projectInfo)
+    }, [projectInfo])
 
     const onFormLayoutChange = ({ layout }) => {
         setFormLayout(layout)
     }
 
-    const formItemLayout =
-        formLayout === 'horizontal'
-            ? {
-                  labelCol: {
-                      span: 4,
-                  },
-                  wrapperCol: {
-                      span: 14,
-                  },
-              }
-            : null
-    const buttonItemLayout =
-        formLayout === 'horizontal'
-            ? {
-                  wrapperCol: {
-                      span: 14,
-                      offset: 4,
-                  },
-              }
-            : null
+    const formItemLayout = {
+        labelCol: {
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 6,
+            },
+        },
+        wrapperCol: {
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 14,
+            },
+        },
+    }
+
     return (
         <>
             <Modal
@@ -79,10 +67,7 @@ const ModalPopup = ({
                 onCancel={() => setVisible(false)}
                 width={1000}
             >
-                <p>some contents...</p>
-                <p>some contents...</p>
-                <p>some contents...</p>
-                {workMode} {number}
+                {workMode}
                 <Form
                     {...formItemLayout}
                     layout={formLayout}
@@ -101,19 +86,20 @@ const ModalPopup = ({
                             <Radio.Button value="inline">Inline</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item label="Field A">
+                    <Form.Item label="Fruits" name="fruits">
                         {workMode === 'VIEW' ? (
-                            <span>asdasd</span>
+                            <span>Apple</span>
                         ) : (
                             <Input placeholder="input placeholder" />
                         )}
                     </Form.Item>
-                    <Form.Item label="Field B">
-                        <Input placeholder="input placeholder" />
+                    <Form.Item label="Beverage" name="Beverage">
+                        {workMode === 'VIEW' ? (
+                            <span>Coke</span>
+                        ) : (
+                            <Input placeholder="input placeholder" />
+                        )}
                     </Form.Item>
-                    <Form.Item {...buttonItemLayout}>
-                        <Button type="primary">Submit</Button>
-                    </Form.Item>                    
                 </Form>
             </Modal>
         </>

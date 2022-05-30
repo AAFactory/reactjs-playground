@@ -14,9 +14,9 @@ import {
     Tag,
 } from 'antd'
 import ModalPopup from './ModalPopup'
+import { log } from '../modules/utils'
 
 function TestState() {
-    console.log('💨💨🚀 TestState.js-start')
     const { CheckableTag } = Tag
     const [visible, setVisible] = useState(false)
     const [number, setNumber] = useState(0)
@@ -25,47 +25,49 @@ function TestState() {
     const [form] = Form.useForm()
     const [formLayout, setFormLayout] = useState('horizontal')
     const myRef = useRef()
+    log('TestState.js', 'start', 0)
 
-    const testFun = () => {
-        console.log('call testFun')
-        setNumber(number + 1)
-        // setVisible(true)
+    const updateNumber = (paramNumber) => {
+        setNumber(paramNumber + number)
     }
 
-    const openPopup = (projectId) => {
-        console.log(projectId)
+    const openPopup = (workMode, projectId = null) => {
         setProjectId(projectId)
         setVisible(true)
-        setWorkMode('CREATE')
+        setWorkMode(workMode)
     }
-
-    useEffect(() => {
-        console.log('App.js-useEffect')
-    })
 
     return (
         <div className="App">
             <h1>React Playground</h1>
-            <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-              <Card style={{ width: "100%" }}>
-                  <Tag color="magenta">Current Number: {number}</Tag>
-                  <Button type="primary" onClick={() => testFun()}>
-                      변경
-                  </Button>
-              </Card>
-              <Card style={{ width: "100%" }}>
-                  <Space>
-                      <Button
-                          type="primary"
-                          onClick={() => openPopup('PJTID00000001')}
-                      >
-                          열람팝업
-                      </Button>
-                      <Button type="primary" onClick={() => openPopup()}>
-                          수정팝업
-                      </Button>
-                  </Space>
-              </Card>
+            <Space
+                direction="vertical"
+                size="middle"
+                style={{ display: 'flex' }}
+            >
+                <Card style={{ width: '100%' }}>
+                    <Tag color="magenta">Current Number: {number}</Tag>
+                    <Space>
+                        <Button type="primary" onClick={() => updateNumber(1)}>＋</Button>
+                        <Button type="primary" onClick={() => updateNumber(-1)}>－</Button>
+                    </Space>
+                </Card>
+                <Card style={{ width: '100%' }}>
+                    <Space>
+                        <Button
+                            type="primary"
+                            onClick={() => openPopup('VIEW', 'PJTID00000001')}
+                        >
+                            열람팝업
+                        </Button>
+                        <Button
+                            type="primary"
+                            onClick={() => openPopup('CREATE')}
+                        >
+                            등록팝업
+                        </Button>
+                    </Space>
+                </Card>
             </Space>
             <ModalPopup
                 visible={visible}
