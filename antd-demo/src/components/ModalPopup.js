@@ -9,7 +9,6 @@ const ModalPopup = ({
     projectId,
     setWorkMode,
 }) => {
-    const [number, setNumber] = useState(0)
     const [projectInfo, setpPojectInfo] = useState({})
     const [form] = Form.useForm()
     const [formLayout, setFormLayout] = useState('horizontal')
@@ -41,18 +40,18 @@ const ModalPopup = ({
     const formItemLayout = {
         labelCol: {
             xs: {
-                span: 24,
+                span: 3,
             },
             sm: {
-                span: 6,
+                span: 3,
             },
         },
         wrapperCol: {
             xs: {
-                span: 24,
+                span: 6,
             },
             sm: {
-                span: 14,
+                span: 6
             },
         },
     }
