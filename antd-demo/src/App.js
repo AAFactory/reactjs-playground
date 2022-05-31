@@ -1,16 +1,16 @@
+import './App.css'
 import React from 'react'
 import { Route } from 'react-router-dom'
-import Main from './components/Main'
-import TestState from './components/TestState'
-import Basic from './templates/Default'
-import './App.css'
+import TestState from './pages/TestState'
+import MainLayout from './components/Layout/MainLayout'
+import ButtonSample from './pages/ButtonSample'
 
 function App() {
     return (
-        <>
-            <Route path="/" component={Basic} exact={true} />
+        <MainLayout>
+            <Route path="/" component={ButtonSample} exact={true} />
             <Route path="/test/state" component={TestState} exact={true} />
-        </>
+        </MainLayout>
     )
 }
 
