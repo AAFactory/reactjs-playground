@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, Typography } from 'antd'
 import {
     AppstoreOutlined,
     BarChartOutlined,
@@ -12,22 +12,9 @@ import {
 } from '@ant-design/icons'
 import { withRouter } from 'react-router-dom'
 import { log } from '../../modules/utils'
-const { Header, Content, Footer, Sider } = Layout
-const items = [
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    AppstoreOutlined,
-    TeamOutlined,
-    ShopOutlined,
-].map((icon, index) => ({
-    key: String(index + 1),
-    icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
-}))
 
+const { Header, Content, Footer, Sider } = Layout
+const { Text, Link } = Typography;
 const menuItems = [
     {
         key: '/',
@@ -47,6 +34,18 @@ const menuItems = [
         icon: React.createElement(UserOutlined),
         label: 'Button',
     },
+    {
+        key: '/typography',
+        path: '/typography',
+        icon: React.createElement(UserOutlined),
+        label: 'Typography',
+    },
+    {
+        key: '/grid',
+        path: '/grid',
+        icon: React.createElement(UserOutlined),
+        label: 'Grid',
+    },
 ]
 
 const MainLayout = withRouter((props) => {
@@ -56,8 +55,10 @@ const MainLayout = withRouter((props) => {
     log('MainLayout.js', 'start', 0)
 
     useEffect(() => {
-        setPathname(location.pathname)
-        log('MainLayout.js', `pathname을 설정합니다. =>${location.pathname}`, 1)
+        if (pathname !== location.pathname) {
+            setPathname(location.pathname)
+            log('MainLayout.js', `pathname을 설정합니다. =>${location.pathname}`, 1)
+        }
     })
 
     useEffect(() => {
@@ -100,7 +101,9 @@ const MainLayout = withRouter((props) => {
                     style={{
                         padding: 0,
                     }}
-                />
+                >
+                    <Text type="success">Hello React</Text> 🍔🍟🌭🍕 
+                </Header>
                 <Content
                     style={{
                         margin: '24px 16px 0',

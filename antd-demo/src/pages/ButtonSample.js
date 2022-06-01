@@ -4,10 +4,7 @@ import { log } from '../modules/utils';
 
 const ButtonSample = ({match, setTabKey}) => {
     log('ButtonSample.js', 'start', 0)
-    log('ButtonSample.js', match.params, 1)
-    useEffect(() => {
-        // setTabKey(match.params.)
-    })
+    // log('ButtonSample.js', match.params, 1)
     return (
         <>
             <Button type="primary">Primary Button</Button>
