@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout, Menu } from 'antd'
 import {
     AppstoreOutlined,
@@ -11,6 +11,7 @@ import {
     VideoCameraOutlined,
 } from '@ant-design/icons'
 import { withRouter } from 'react-router-dom'
+import { log } from '../../modules/utils'
 const { Header, Content, Footer, Sider } = Layout
 const items = [
     UserOutlined,
@@ -29,20 +30,41 @@ const items = [
 
 const menuItems = [
     {
-        key: '1',
+        key: '/',
         path: '/',
         icon: React.createElement(UserOutlined),
         label: 'root',
     },
     {
-        key: '2',
+        key: '/test/state',
         path: '/test/state',
         icon: React.createElement(UserOutlined),
         label: 'Test State',
     },
+    {
+        key: '/button',
+        path: '/button',
+        icon: React.createElement(UserOutlined),
+        label: 'Button',
+    },
 ]
 
-const MainLayout = withRouter(({ children, history }) => {
+const MainLayout = withRouter((props) => {
+    const { history, children, location } = props
+    const [tabKey, setTabKey] = useState('/button')
+    const [pathname, setPathname] = useState('/button')
+    log('MainLayout.js', 'start', 0)
+
+    useEffect(() => {
+        setPathname(location.pathname)
+        log('MainLayout.js', `pathname을 설정합니다. =>${location.pathname}`, 1)
+    })
+
+    useEffect(() => {
+        setTabKey(pathname)
+        log('MainLayout.js', `tabKey를 설정합니다. =>${pathname}`, 1)
+    }, [pathname])
+
     return (
         <Layout hasSider>
             <Sider
@@ -62,7 +84,8 @@ const MainLayout = withRouter(({ children, history }) => {
                     }}
                     theme="dark"
                     mode="inline"
-                    defaultSelectedKeys={['1']}
+                    // defaultSelectedKeys={['1']}
+                    selectedKeys={tabKey}
                     items={menuItems}
                 />
             </Sider>

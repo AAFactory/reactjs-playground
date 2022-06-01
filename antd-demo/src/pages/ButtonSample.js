@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from 'antd';
+import { log } from '../modules/utils';
 
-const ButtonSample = (props) => {
-    console.log(props)
+const ButtonSample = ({match, setTabKey}) => {
+    log('ButtonSample.js', 'start', 0)
+    log('ButtonSample.js', match.params, 1)
+    useEffect(() => {
+        // setTabKey(match.params.)
+    })
     return (
         <>
             <Button type="primary">Primary Button</Button>
