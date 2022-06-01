@@ -10,6 +10,7 @@ import {
     UploadOutlined,
     VideoCameraOutlined,
 } from '@ant-design/icons'
+import { withRouter } from 'react-router-dom'
 const { Header, Content, Footer, Sider } = Layout
 const items = [
     UserOutlined,
@@ -41,7 +42,7 @@ const menuItems = [
     },
 ]
 
-const MainLayout = ({ children }) => {
+const MainLayout = withRouter(({ children, history }) => {
     return (
         <Layout hasSider>
             <Sider
@@ -56,8 +57,8 @@ const MainLayout = ({ children }) => {
             >
                 <div className="logo" />
                 <Menu
-                    onClick={(e) => {
-                        console.log(e)
+                    onClick={({ item, key, keyPath, domEvent }) => {
+                        history.push(item.props.path)
                     }}
                     theme="dark"
                     mode="inline"
@@ -103,5 +104,5 @@ const MainLayout = ({ children }) => {
             </Layout>
         </Layout>
     )
-}
+})
 export default MainLayout

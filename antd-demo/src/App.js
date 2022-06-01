@@ -10,6 +10,7 @@ function App() {
         <MainLayout>
             <Route path="/" component={ButtonSample} exact={true} />
             <Route path="/test/state" component={TestState} exact={true} />
+            <Route path="/:feature" component={ButtonSample} exact={true} />
         </MainLayout>
     )
 }
