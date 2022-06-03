@@ -46,6 +46,12 @@ const menuItems = [
         icon: React.createElement(UserOutlined),
         label: 'Grid',
     },
+    {
+        key: '/form',
+        path: '/form',
+        icon: React.createElement(UserOutlined),
+        label: 'Form',
+    },
 ]
 
 const MainLayout = withRouter((props) => {
@@ -113,8 +119,7 @@ const MainLayout = withRouter((props) => {
                     <div
                         className="site-layout-background"
                         style={{
-                            padding: 24,
-                            textAlign: 'center',
+                            padding: 24
                         }}
                     >
                         {children}

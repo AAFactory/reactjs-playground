@@ -1,13 +1,14 @@
-import React from 'react';
-import { Typography } from 'antd';
-const { Title } = Typography;
+import React from 'react'
+import { Image } from 'antd'
+import octocat from "../github-octocat.png"
 
 const Reference = () => {
-  return (
-   <>
-    <Title level={2}>https://ant.design/components/overview/</Title>
-   </>
-  )
+    return (
+        <Image
+            width="100%"
+            src={octocat}
+        />
+    )
 }
 
 export default Reference
