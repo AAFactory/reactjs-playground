@@ -58,6 +58,12 @@ const menuItems = [
         icon: React.createElement(UserOutlined),
         label: 'Form.List',
     },
+    {
+        key: '/table',
+        path: '/table',
+        icon: React.createElement(UserOutlined),
+        label: 'Table',
+    }
 ]
 
 const MainLayout = withRouter((props) => {

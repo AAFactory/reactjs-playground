@@ -9,6 +9,7 @@ import GridSample from './pages/GridSample'
 import Reference from './pages/Reference'
 import FormSample from './pages/FormSample'
 import FormListSample from './pages/FormListSample'
+import TableSample from './pages/TableSample'
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/grid" component={GridSample} exact={true} />            
             <Route path="/test/state" component={TestState} exact={true} />
             <Route path="/form-list" component={FormListSample} exact={true} />
+            <Route path="/table" component={TableSample} exact={true} />
         </MainLayout>
     )
 }
