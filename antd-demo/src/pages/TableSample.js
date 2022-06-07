@@ -1,7 +1,7 @@
 import { Space, Table, Tag, Input, Button, Select } from 'antd'
 import React, { useState } from 'react'
 import { log } from '../modules/utils'
-const { Option } = Select;
+const { Option } = Select
 const data = [
     {
         key: '1',
@@ -9,6 +9,7 @@ const data = [
         age: 32,
         address: 'New York No. 1 Lake Park',
         tag: 'nice',
+        fruitKey: '2',
     },
     {
         key: '2',
@@ -16,6 +17,7 @@ const data = [
         age: 42,
         address: 'London No. 1 Lake Park',
         tag: 'loser',
+        fruitKey: '1',
     },
     {
         key: '3',
@@ -23,8 +25,7 @@ const data = [
         age: 32,
         address: 'Sidney No. 1 Lake Park',
         tag: 'cool',
-        fruitKey: 1,
-        fruitValue: 'apple'
+        fruitKey: '1',
     },
 ]
 
@@ -32,8 +33,8 @@ const TableSample = () => {
     log('TableSample.js', 'start', 0)
     const [dataSource, setDataSource] = useState(data)
     const fruits = [
-      {key: 1, value: 'apple'},
-      {key: 2, value: 'banana'}
+        { key: '1', value: 'apple' },
+        { key: '2', value: 'banana' },
     ]
     const columns = [
         {
@@ -43,23 +44,30 @@ const TableSample = () => {
             render: (text) => <a>{text}</a>,
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
+            title: 'Favorite Fruit',
+            dataIndex: 'fruitKey',
+            key: 'fruitKey',
             render: (text, columnData) => (
                 <>
                     <Select
-                      value={columnData.fruitValue}
-                        // defaultValue="lucy"
+                        defaultValue={text}
                         style={{
                             width: 120,
                         }}
                         onChange={(e) => {
-                            console.log(e, this)
+                            setDataSource(
+                                dataSource.map((data) => {
+                                    if (data.key === columnData.key)
+                                        data['fruitKey'] = e
+                                    return data
+                                })
+                            )
                         }}
                     >
                         {fruits.map((fruit) => (
-                            <Option key={fruit.key}>{fruit.value}</Option>
+                            <Option key={fruit.key} value={fruit.fruitKey}>
+                                {fruit.value}
+                            </Option>
                         ))}
                     </Select>
                 </>
