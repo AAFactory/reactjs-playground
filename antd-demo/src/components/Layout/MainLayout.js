@@ -9,6 +9,7 @@ import {
     UserOutlined,
     UploadOutlined,
     VideoCameraOutlined,
+    ProfileTwoTone
 } from '@ant-design/icons'
 import { withRouter } from 'react-router-dom'
 import { log } from '../../modules/utils'
@@ -19,49 +20,49 @@ const menuItems = [
     {
         key: '/',
         path: '/',
-        icon: React.createElement(UserOutlined),
+        icon: React.createElement(ProfileTwoTone),
         label: 'root',
     },
     {
         key: '/test/state',
         path: '/test/state',
-        icon: React.createElement(UserOutlined),
+        icon: React.createElement(ProfileTwoTone),
         label: 'Test State',
     },
     {
         key: '/button',
         path: '/button',
-        icon: React.createElement(UserOutlined),
+        icon: React.createElement(ProfileTwoTone),
         label: 'Button',
     },
     {
         key: '/typography',
         path: '/typography',
-        icon: React.createElement(UserOutlined),
+        icon: React.createElement(ProfileTwoTone),
         label: 'Typography',
     },
     {
         key: '/grid',
         path: '/grid',
-        icon: React.createElement(UserOutlined),
+        icon: React.createElement(ProfileTwoTone),
         label: 'Grid',
     },
     {
         key: '/form',
         path: '/form',
-        icon: React.createElement(UserOutlined),
+        icon: React.createElement(ProfileTwoTone),
         label: 'Form',
     },
     {
         key: '/form-list',
         path: '/form-list',
-        icon: React.createElement(UserOutlined),
+        icon: React.createElement(ProfileTwoTone),
         label: 'Form.List',
     },
     {
         key: '/table',
         path: '/table',
-        icon: React.createElement(UserOutlined),
+        icon: React.createElement(ProfileTwoTone),
         label: 'Table',
     }
 ]
