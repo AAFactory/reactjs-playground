@@ -121,6 +121,13 @@ const TableSample = () => {
             >
                 Print Datasource
             </Button>
+            <Button
+                onClick={() => {
+                    setDataSource([...dataSource, {key: `temp_${dataSource.length}`}])
+                }}
+            >
+                ADD
+            </Button>
             <Table columns={columns} dataSource={dataSource} />
         </>
     )
