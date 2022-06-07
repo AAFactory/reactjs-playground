@@ -8,6 +8,7 @@ import TypographySample from './pages/Typography'
 import GridSample from './pages/GridSample'
 import Reference from './pages/Reference'
 import FormSample from './pages/FormSample'
+import FormListSample from './pages/FormListSample'
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/typography" component={TypographySample} exact={true} />
             <Route path="/grid" component={GridSample} exact={true} />            
             <Route path="/test/state" component={TestState} exact={true} />
+            <Route path="/form-list" component={FormListSample} exact={true} />
         </MainLayout>
     )
 }
