@@ -7,6 +7,7 @@ const FormTable = () => {
     log('FormTable.js', 'start', 0)
     const [dataSource, setDataSource] = useState(data)
     const [formInstance] = Form.useForm()
+    const [selectedRowKeys, setSelectedRowKeys] = useState([])
     const columns = [
         {
             title: 'Name',
@@ -91,30 +92,58 @@ const FormTable = () => {
 
     return (
         <>
-            <Button
-                onClick={() => {
-                    console.log('dataSource', dataSource)
-                    console.log('formInstance', formInstance.getFieldValue())
-                    log('FormTable.js', 'transform-start', 1)
-                    const result = transFormData();
-                    log('FormTable.js', 'transform-end', 1)
-                    console.log('result', result)
+            <div
+                style={{
+                    marginBottom: 16,
                 }}
             >
-                Print Datasource
-            </Button>
-            <Button
-                onClick={() => {
-                    setDataSource([
-                        ...transFormData(),
-                        { key: `temp_${dataSource.length}`, fruitCode: '1' },
-                    ])
-                }}
-            >
-                ADD
-            </Button>
+                <Button
+                    onClick={() => {
+                        console.log('dataSource', dataSource)
+                        console.log(
+                            'formInstance',
+                            formInstance.getFieldValue()
+                        )
+                        log('FormTable.js', 'transform-start', 1)
+                        const result = transFormData()
+                        log('FormTable.js', 'transform-end', 1)
+                        console.log('result', result)
+                    }}
+                >
+                    Print Datasource
+                </Button>
+                <Button
+                    onClick={() => {
+                        setDataSource([
+                            ...transFormData(),
+                            {
+                                key: `temp_${dataSource.length}`,
+                                fruitCode: '1',
+                            },
+                        ])
+                    }}
+                >
+                    ADD
+                </Button>
+                <Button
+                    onClick={() => {
+                        console.log(selectedRowKeys)
+                        setDataSource(dataSource.filter((item) => !selectedRowKeys.some(key => key === item.key)))
+                    }}
+                >
+                    DELETE
+                </Button>
+            </div>
             <Form form={formInstance}>
-                <Table columns={columns} dataSource={dataSource} />
+                <Table
+                    columns={columns}
+                    dataSource={dataSource}
+                    rowSelection={{
+                        selectedRowKeys,
+                        onChange: (newSelectedRowKeys) =>
+                            setSelectedRowKeys(newSelectedRowKeys),
+                    }}
+                />
             </Form>
         </>
     )
