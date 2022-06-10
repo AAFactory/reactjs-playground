@@ -4,10 +4,12 @@ import octocat from "../github-octocat.png"
 
 const Reference = () => {
     return (
-        <Image
-            width="100%"
-            src={octocat}
-        />
+        <div style={{textAlign: 'center'}}>
+            <Image
+                width="50%"
+                src={octocat}
+            />
+        </div>
     )
 }
 
