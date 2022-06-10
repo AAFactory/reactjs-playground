@@ -1,5 +1,5 @@
 import { Space, Table, Tag, Input, Button, Select, Form } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { log } from '../modules/utils'
 const { Option } = Select
 
@@ -8,19 +8,26 @@ const FormTable = () => {
     const [dataSource, setDataSource] = useState(data)
     const [formInstance] = Form.useForm()
     const [selectedRowKeys, setSelectedRowKeys] = useState([])
+    const tempSequence = useRef(0)
     const columns = [
         {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (text) => <a>{text}</a>,
+            render: (name, columnData) => (
+                <Form.Item name={`name_${columnData.key}`} style={{ marginBottom: "0px" }}>
+                    <Input
+                        placeholder="Please input name"
+                    />
+                </Form.Item>
+            ),
         },
         {
             title: 'Favorite Fruit',
             dataIndex: 'fruitCode',
             key: 'fruitCode',
             render: (fruitCode, columnData) => (
-                <Form.Item name={`fruitCode_${columnData.key}`}>
+                <Form.Item name={`fruitCode_${columnData.key}`} style={{ marginBottom: "0px" }}>
                     <Select
                         style={{
                             width: 120,
@@ -49,7 +56,7 @@ const FormTable = () => {
             key: 'address',
             dataIndex: 'address',
             render: (address, columnData) => (
-                <Form.Item name={`address_${columnData.key}`}>
+                <Form.Item name={`address_${columnData.key}`} style={{ marginBottom: "0px" }}>
                     <Input
                         placeholder="Please input address"
                         // value={text}
@@ -114,10 +121,11 @@ const FormTable = () => {
                 </Button>
                 <Button
                     onClick={() => {
+                        tempSequence.current = tempSequence.current + 1
                         setDataSource([
                             ...transFormData(),
                             {
-                                key: `temp_${dataSource.length}`,
+                                key: `temp_${tempSequence.current}`,
                                 fruitCode: '1',
                             },
                         ])
