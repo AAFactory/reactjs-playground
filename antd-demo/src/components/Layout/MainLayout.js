@@ -64,6 +64,12 @@ const menuItems = [
         path: '/table',
         icon: React.createElement(ProfileTwoTone),
         label: 'Table',
+    },
+    {
+        key: '/form-table',
+        path: '/form-table',
+        icon: React.createElement(ProfileTwoTone),
+        label: 'Form＋Table',
     }
 ]
 

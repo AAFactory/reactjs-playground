@@ -10,6 +10,7 @@ import Reference from './pages/Reference'
 import FormSample from './pages/FormSample'
 import FormListSample from './pages/FormListSample'
 import TableSample from './pages/TableSample'
+import FormTable from './pages/FormTable'
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/test/state" component={TestState} exact={true} />
             <Route path="/form-list" component={FormListSample} exact={true} />
             <Route path="/table" component={TableSample} exact={true} />
+            <Route path="/form-table" component={FormTable} exact={true} />
         </MainLayout>
     )
 }
