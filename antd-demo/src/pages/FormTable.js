@@ -2,43 +2,11 @@ import { Space, Table, Tag, Input, Button, Select, Form } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { log } from '../modules/utils'
 const { Option } = Select
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tag: 'nice',
-        fruitKey: '2',
-        tag_1: 'Hello!!',
-        fruit_1: '2',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tag: 'loser',
-        fruitKey: '1',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tag: 'cool',
-        fruitKey: '1',
-    },
-]
 
 const FormTable = () => {
     log('FormTable.js', 'start', 0)
     const [dataSource, setDataSource] = useState(data)
     const [formInstance] = Form.useForm()
-    const fruits = [
-        { key: '1', value: 'apple' },
-        { key: '2', value: 'banana' },
-    ]
     const columns = [
         {
             title: 'Name',
@@ -48,10 +16,10 @@ const FormTable = () => {
         },
         {
             title: 'Favorite Fruit',
-            dataIndex: 'fruitKey',
-            key: 'fruitKey',
-            render: (text, columnData) => (
-                <Form.Item name={`fruit_${columnData.key}`}>
+            dataIndex: 'fruitCode',
+            key: 'fruitCode',
+            render: (fruitCode, columnData) => (
+                <Form.Item name={`fruitCode_${columnData.key}`}>
                     <Select
                         style={{
                             width: 120,
@@ -77,17 +45,12 @@ const FormTable = () => {
         },
         {
             title: 'Address',
-            dataIndex: 'address',
             key: 'address',
-        },
-        {
-            title: 'Tag',
-            key: 'tag',
-            dataIndex: 'tag',
-            render: (text, columnData) => (
-                <Form.Item name={`tag_${columnData.key}`}>
+            dataIndex: 'address',
+            render: (address, columnData) => (
+                <Form.Item name={`address_${columnData.key}`}>
                     <Input
-                        placeholder="Tag"
+                        placeholder="Please input address"
                         // value={text}
                         onChange={(e) => {
                             // setDataSource(
@@ -102,21 +65,29 @@ const FormTable = () => {
                 </Form.Item>
             ),
         },
-        {
-            title: 'Action',
-            key: 'action',
-            render: (_, record) => (
-                <Space size="middle">
-                    <a>Invite {record.name}</a>
-                    <a>Delete</a>
-                </Space>
-            ),
-        },
     ]
 
     useEffect(() => {
-        formInstance.setFieldsValue(dataSource[0])
+        dataSource.map((rowData) => {
+            rowData[`address_${rowData.key}`] = rowData.address
+            rowData[`fruitCode_${rowData.key}`] = rowData.fruitCode
+            rowData[`name_${rowData.key}`] = rowData.name
+            formInstance.setFieldsValue(rowData)
+        })
     }, [dataSource])
+
+    const transFormData = () => {
+        const values = formInstance.getFieldValue()
+        return dataSource.map((origin) => {
+            const transform = {
+                key: origin.key,
+                address: values[`address_${origin.key}`],
+                fruitCode: values[`fruitCode_${origin.key}`],
+                name: values[`name_${origin.key}`],
+            }
+            return transform
+        })
+    }
 
     return (
         <>
@@ -124,6 +95,10 @@ const FormTable = () => {
                 onClick={() => {
                     console.log('dataSource', dataSource)
                     console.log('formInstance', formInstance.getFieldValue())
+                    log('FormTable.js', 'transform-start', 1)
+                    const result = transFormData();
+                    log('FormTable.js', 'transform-end', 1)
+                    console.log('result', result)
                 }}
             >
                 Print Datasource
@@ -131,8 +106,8 @@ const FormTable = () => {
             <Button
                 onClick={() => {
                     setDataSource([
-                        ...dataSource,
-                        { key: `temp_${dataSource.length}` },
+                        ...transFormData(),
+                        { key: `temp_${dataSource.length}`, fruitCode: '1' },
                     ])
                 }}
             >
@@ -146,3 +121,29 @@ const FormTable = () => {
 }
 
 export default FormTable
+
+const data = [
+    {
+        key: '1',
+        name: 'John Brown',
+        address: 'New York No. 1 Lake Park',
+        fruitCode: '1',
+    },
+    {
+        key: '2',
+        name: 'Jim Green',
+        address: 'London No. 1 Lake Park',
+        fruitCode: '1',
+    },
+    {
+        key: '3',
+        name: 'Joe Black',
+        address: 'Sidney No. 1 Lake Park',
+        fruitCode: '2',
+    },
+]
+
+const fruits = [
+    { key: '1', value: 'apple' },
+    { key: '2', value: 'banana' },
+]
