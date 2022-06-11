@@ -189,7 +189,7 @@ const FormTable = () => {
                     onClick={() => {
                         console.log(selectedRowKeys)
                         setDataSource(
-                            dataSource.filter(
+                            transFormData().filter(
                                 (item) =>
                                     !selectedRowKeys.some(
                                         (key) => key === item.key
