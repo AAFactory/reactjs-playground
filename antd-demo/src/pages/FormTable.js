@@ -105,11 +105,11 @@ const FormTable = () => {
                         >
                             <DatePicker
                                 format={dateFormat}
-                                defaultValue={
-                                    birthday
-                                        ? moment(birthday, dateFormat)
-                                        : moment()
-                                }
+                                // defaultValue={
+                                //     birthday
+                                //         ? moment(birthday, dateFormat)
+                                //         : moment()
+                                // }
                                 // onChange={(date, dateString) => {
                                 //     console.log(dateString)
                                 //     dataSource.find(
@@ -130,7 +130,7 @@ const FormTable = () => {
             rowData[`address_${rowData.key}`] = rowData.address
             rowData[`fruitCode_${rowData.key}`] = rowData.fruitCode
             rowData[`name_${rowData.key}`] = rowData.name
-            // rowData[`birthday_${rowData.key}`] = rowData.birthday
+            rowData[`birthday_${rowData.key}`] = rowData.birthday ? moment(rowData.birthday) : null
             formInstance.setFieldsValue(rowData)
         })
     }, [dataSource])
@@ -143,7 +143,7 @@ const FormTable = () => {
                 address: values[`address_${origin.key}`],
                 fruitCode: values[`fruitCode_${origin.key}`],
                 name: values[`name_${origin.key}`],
-                birthday: typeof values[`birthday_${origin.key}`] === 'object' ? values[`birthday_${origin.key}`].format(dateFormat): origin.birthday,
+                birthday: values[`birthday_${origin.key}`] !== null ? values[`birthday_${origin.key}`].format(dateFormat) : null
             }
             return transform
         })
